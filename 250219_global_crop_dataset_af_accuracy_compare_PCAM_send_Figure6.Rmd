@@ -1,0 +1,36 @@
+---
+title: "Untitled"
+output: html_document
+date: "2024-04-28"
+---
+
+```{r,eval=FALSE}
+# Import the data from CSV files
+df <- read.csv("D:\\Research\\global_crop_dataset\\table\\af_result_pcam_df_accuracy.csv")
+# Check data
+df <- na.omit(df)
+print(df)
+```
+
+
+```{r,eval=FALSE}
+# 导入所需的库
+library(ggplot2)
+
+p3<-ggplot(df)+geom_violin(aes(y=df$SPAM_shortName,x=df$rmse),color='darkgreen',fill='darkgreen',alpha=0.1,scale = "width",adjust=1.2)+ylab("Crop Type")+xlab("RMSE(pixel percentage)")+theme(legend.position="none",plot.title = element_text(size=13),axis.title = element_text(size = 13),axis.text.y=element_text(size=11),axis.text.x=element_text(size=11))
+p3
+
+#ggsave("af_rmse_PCAM_cropType_violin-Plot-240607.png",plot=p3,width = 4,height = 6,dpi = 400)
+
+```
+
+```{r,eval=FALSE}
+# 导入所需的库
+library(ggplot2)
+
+p3<-ggplot(df)+geom_violin(aes(y=df$SPAM_shortName,x=df$r_squared),color='darkgreen',fill='darkgreen',alpha=0.1,scale = "width",adjust=0.8)+ylab("Crop Type")+xlab("R^2")+theme(legend.position="none",plot.title = element_text(size=13),axis.title = element_text(size = 13),axis.text.y=element_text(size=11),axis.text.x=element_text(size=11))
+p3
+
+#ggsave("af_r2_PCAM_cropType_violin-Plot_240607.png",plot=p3,width = 4,height = 6,dpi = 400)
+
+```

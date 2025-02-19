@@ -1,0 +1,55 @@
+
+```{r,eval=FALSE}
+# Import the data from CSV files
+
+df1 <- read.csv("D:\\Research\\global_crop_dataset\\table\\af_result_df_accuracy_compare.csv")
+# Check data
+#print(df1)
+
+df1$rmse_reduce_prop=(df1$rmse_base-df1$rmse_dynamic)/df1$rmse_base
+df1$r_squared_add=(df1$r_squared_dynamic-df1$r_squared_base)-df1$r_squared_base
+print(df1)
+```
+
+
+```{r,eval=FALSE}
+
+library(ggplot2)
+#df1<-df1[order(-df1$r_squared_dynamic), ]
+#print(df1)
+#ggplot(df1, aes(x = reorder(SPAM_shortName, -r_squared_dynamic, mean), y = r_squared_dynamic)) +
+#ggplot(df1, aes(y = SPAM_shortName, x = r_squared_dynamic)) +
+p3 <- ggplot(df1, aes(y = reorder(SPAM_shortName, -r_squared_dynamic, mean), x = r_squared_dynamic)) +
+  geom_point(color = 'darkgreen',fill = 'darkgreen',alpha=0.5,shape=21,size=4) +
+  ylab("Crop Type") +
+  xlab(" R^2") +theme_bw()+
+  theme(plot.title = element_text(size = 15), axis.title = element_text(size = 15),legend.position = 'right',axis.text.y=element_text(size=14),axis.text.x=element_text(size=14)) +
+  geom_point(y = df1$SPAM_shortName,x = df1$r_squared_base, color = 'darkgrey', fill = 'darkgrey',alpha=0.5,shape=21,size=4)+scale_x_continuous(limits = c(0, 0.8))
+p3
+
+
+#ggsave("af_r_squared_method_compare_240607.png",plot=p3,width = 6,height = 10,dpi = 400)
+
+```
+
+```{r,eval=FALSE}
+
+library(ggplot2)
+#df1<-df1[order(-df1$r_squared_dynamic), ]
+#print(df1)
+#ggplot(df1, aes(x = reorder(SPAM_shortName, -r_squared_dynamic, mean), y = r_squared_dynamic)) +
+#ggplot(df1, aes(y = SPAM_shortName, x = r_squared_dynamic)) +
+p3 <- ggplot(df1, aes(y = reorder(SPAM_shortName, rmse_base, mean), x = rmse_dynamic)) +
+  geom_point(color = 'darkgreen',fill = 'darkgreen',alpha=0.5,shape=21,size=4) +
+  ylab("Crop Type") +
+  xlab(" RMSE(ha)") +theme_bw()+
+  theme(plot.title = element_text(size = 15), axis.title = element_text(size = 15),legend.position = 'right',axis.text.y=element_text(size=14),axis.text.x=element_text(size=14)) +
+  geom_point(y = df1$SPAM_shortName,x = df1$rmse_base, color = 'darkgrey', fill = 'darkgrey',alpha=0.5,shape=21,size=4)+scale_x_continuous(limits = c(0, 720))
+p3
+
+
+#ggsave("af_rmse_method_compare_240607.png",plot=p3,width = 6,height = 10,dpi = 400)
+
+```
+
+
